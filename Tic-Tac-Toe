@@ -1,0 +1,254 @@
+/* This program implements the game of Tic-Tac-Toe where you can play against the computer.
+Player 1 will be you and Player 2 will be the computer. */
+
+#include <stdio.h>
+#define SIZE 3
+
+void display_table (char board [SIZE][SIZE])
+{
+    int r, c;
+
+    printf("The current state of the game is: \n");
+    
+    for(r = 0; r < 3; r++)
+    {
+        for(c = 0; c < 3; c++)
+        {
+            //Prints an underscore to represent each empty cell
+            printf("%c ", board[r][c]);
+        }
+        printf("\n");
+    }
+}
+
+// Clears the board by making every poition in the array an empy cell '_'.
+void clear_table(char board [SIZE][SIZE])
+{
+    int r, c;
+
+    for(r = 0; r < 3; r++)
+    {
+        for(c=0; c < 3; c++)
+        {
+            board[r][c] = '_';
+        }
+    }
+}
+
+// Checks to see if the board is full or not and returns 0 if not, 1 if true.
+int check_table_full(char board[SIZE][SIZE])
+{
+    int r, c;
+    
+     for(r = 0; r < 3; r++)
+     {
+        for(c = 0; c < 3; c++)
+        {
+            if(board[r][c] == '_')
+                return 0;
+        }
+    }
+    return 1;
+}
+
+//Assigns player 1 the 'O' character and player 2 the 'X' character.
+int update_table (char board [SIZE][SIZE])
+{
+    char player1_Character='O', player2_Character='X';
+}
+
+//Sees if user input is legal for the given board size and returns 0 if false and 1 if true.
+int check_legal_option(char board[SIZE][SIZE], int r, int c)
+{
+
+    if(board[r][c] == '_')
+    {
+        return 1;
+    }
+    return 0;
+}
+
+//Function that generates a valid move for player 2; using pointers and a random number generator.
+void generate_player2_move(char board[SIZE][SIZE], int *r, int *c)
+{
+    while(1)
+    {
+        *r= rand() % 3;
+        *c = rand() % 3;
+
+        if(check_legal_option(board, *r, *c) == 1)
+            break;
+    }
+}
+
+//Layout of board and possibilities of a win necessary for the check_end_of_game function below.
+int check_end_of_game (char board [SIZE][SIZE], char player)
+{
+    return (board[0][0] == player && board[0][1] == player && board[0][2] == player) ||
+           (board[1][0] == player && board[1][1] == player && board[1][2] == player) ||
+           (board[2][0] == player && board[2][1] == player && board[2][2] == player) ||
+           (board[0][0] == player && board[1][0] == player && board[2][0] == player) ||
+           (board[0][1] == player && board[1][1] == player && board[2][1] == player) ||
+           (board[0][2] == player && board[1][2] == player && board[2][2] == player) ||
+           (board[0][0] == player && board[1][1] == player && board[2][2] == player) ||
+           (board[0][2] == player && board[1][1] == player && board[2][0] == player);
+
+}
+
+//Returns the ID of the player that has three in a row or zero if no one has three in a row.
+int check_three_in_a_row(char board[SIZE][SIZE], char player_1, char player_2)
+{
+    //Player 1 wins
+    if(check_end_of_game(board, 'O') == 1)
+    {
+        return 1;
+    }
+    //Player 2 wins
+    else if(check_end_of_game(board, 'X') == 1)
+    {
+        return 2;
+    }
+    //No one wins, results in a tie
+    else
+    {
+        return 0;
+    }
+}
+
+void tic_tac_toe(char board[SIZE][SIZE], char player_1, char player_2)
+{
+    int r, c;
+    int winCondition;
+
+    while(check_table_full(board) != 1)
+    {
+        
+        while(1)
+        {
+            //Gets player 1's move
+            printf("Player 1 enter your selection [row, col]: ");
+            scanf("%d,%d", &r, &c);
+
+            r = r - 1;
+            c = c - 1;
+
+            if(check_legal_option(board, r, c) == 1)
+                break;
+            else
+                printf("Choose a valid space!\n");
+        }
+        
+        //Player1
+        board[r][c] = player_1;
+
+        display_table(board);
+
+        winCondition = check_three_in_a_row(board, player_1, player_2);
+        
+        //Prints winner        
+        if(winCondition == 1 || winCondition == 2)
+        {
+
+            switch(winCondition)
+            {
+                case 1: printf("Congratulations, Player 1 wins!\n");
+                    break;
+                case 2: printf("Congratulations, Player 2 wins!\n");
+                    break;
+            }
+
+            return;
+        } else if (check_table_full(board) == 1){
+            printf ("Game over, no player wins.\n");
+            return;
+        }
+        
+        //Player2
+        generate_player2_move(board, &r, &c);
+
+        board[r][c] = player_2;
+
+        printf("Player 2 has entered [row, col]: %d,%d \n", r+1, c+1);
+        
+        display_table(board);
+
+
+        winCondition = check_three_in_a_row(board, player_1, player_2);
+        
+        //Prints winner
+        if(winCondition == 1 || winCondition == 2)
+        {
+
+            switch(winCondition)
+            {
+                case 1: printf("Congratulations, Player 1 wins!\n");
+                    break;
+                case 2: printf("Congratulations, Player 2 wins!\n");
+                    break;
+                
+            }
+
+            return;
+        } else if (check_table_full(board) == 1){
+            printf ("Game over, no player wins.\n");
+            return;
+        }
+    }
+}
+
+int main()
+{
+    char board[SIZE][SIZE];
+
+    char player1_Character='O', player2_Character='X';
+
+    clear_table(board);
+
+    display_table(board);
+
+    //The following function "tic_tac_toe" encompasses "get_player1_move" and "print_winner" all in one function.
+    tic_tac_toe(board, player1_Character, player2_Character);
+
+    int play = 1;
+    
+    char again;
+    
+    printf("Would you like to play again (Y/N): \n");
+    scanf(" %c", &again);
+    getchar();
+    
+    while ((again == 'y') || (again == 'Y')){ 
+    
+    if ((again == 'Y') || (again == 'y')){
+        
+        play++;
+        
+        clear_table(board);
+        
+        display_table(board);
+        
+        tic_tac_toe(board, player1_Character, player2_Character);
+        
+    } else if ((again == 'n') || (again == 'N')){
+        
+        return 0;
+        
+    }
+    printf("Would you like to play again (Y/N): \n");
+    scanf(" %c", &again);
+    getchar();
+    
+    }
+    return 0;
+}
+
+
+
+
+
+
+
+
+
+
+
