@@ -1,0 +1,97 @@
+/* This program simulates a complex calculator that can deal with imaginary and complex numbers*/
+#include <stdio.h>
+
+void add(double real_part_1, double imaginary_part_1, double real_part_2, double imaginary_part_2, double* real_result, double* imaginary_result){
+    *imaginary_result = (imaginary_part_1 + imaginary_part_2);
+    *real_result = (real_part_1 + real_part_2);
+}
+
+void subtract(double real_part_1, double imaginary_part_1, double real_part_2, double imaginary_part_2, double* real_result, double* imaginary_result){
+    *imaginary_result = (imaginary_part_1 - imaginary_part_2);
+    *real_result = (real_part_1 - real_part_2);
+}
+
+void multiply(double real_part_1, double imaginary_part_1, double real_part_2, double imaginary_part_2, double* real_result, double* imaginary_result){
+    *imaginary_result = (real_part_1 * imaginary_part_2) + (imaginary_part_1 * real_part_2);
+    *real_result = (real_part_1 * real_part_2) - (imaginary_part_1 * imaginary_part_2);
+}
+
+void divide(double real_part_1, double imaginary_part_1, double real_part_2, double imaginary_part_2, double* real_result, double* imaginary_result){
+    *imaginary_result = (((real_part_2) * (imaginary_part_1)) - ((real_part_1) * (imaginary_part_2))) / ((real_part_2 * real_part_2) + (imaginary_part_2 * imaginary_part_2));
+    *real_result = (((real_part_1) * (real_part_2)) + ((imaginary_part_1) * (imaginary_part_2))) / ((real_part_2 * real_part_2) + (imaginary_part_2 * imaginary_part_2));
+}
+
+void read_num(double *real_part, double *imaginary_part){
+    printf ("Please type in the real component: ");
+    scanf ("%lf", real_part);
+    printf ("Please type in the impaginary component: ");
+    scanf ("%lf", imaginary_part);
+}
+
+void read_nums(double* real_part_1, double* imaginary_part_1, double* real_part_2, double* imaginary_part_2){
+    
+    printf ("Reading the first imaginary number...\n");
+    read_num(real_part_1, imaginary_part_1); 
+    printf ("Reading the second imaginary number...\n");
+    read_num(real_part_2, imaginary_part_2); 
+}
+
+void print_complex(double real_part, double imaginary_part){
+    printf ("The operation yields %6.3lf + %6.3lfi\n", real_part, imaginary_part);
+}
+
+int main()
+{
+    int option;
+    
+    double real_part_1, imaginary_part_1, real_part_2, imaginary_part_2, real_result, imaginary_result;
+    printf ("Complex Number Arithmetic Program:\n");
+   
+    while (option != 5){
+    
+    printf ("1) Add two complex numbers \n2) Subtract two complex numbers \n3) Multiply two complex numbers \n4) Divide two complex numbers \n5) Quit\n");
+    printf("Choose an option (1 - 5): ");
+    scanf ("%d", &option);
+    if (option != 1 && option != 2 && option != 3 && option != 4 && option != 5){
+        printf ("Please input a valid menu option\n");
+    }
+    
+    switch (option){
+        case 1: 
+            read_nums(&real_part_1, &imaginary_part_1, &real_part_2, &imaginary_part_2);
+            add(real_part_1, imaginary_part_1, real_part_2, imaginary_part_2, &real_result, &imaginary_result);
+            print_complex(real_result, imaginary_result);
+            break;
+    
+        case 2:
+            read_nums(&real_part_1, &imaginary_part_1, &real_part_2, &imaginary_part_2);
+            subtract(real_part_1, imaginary_part_1, real_part_2, imaginary_part_2, &real_result, &imaginary_result);
+            print_complex(real_result, imaginary_result);
+            break;
+    
+        case 3:
+            read_nums(&real_part_1, &imaginary_part_1, &real_part_2, &imaginary_part_2);
+            multiply(real_part_1, imaginary_part_1, real_part_2, imaginary_part_2, &real_result, &imaginary_result);
+            print_complex(real_result, imaginary_result);
+            break;
+    
+        case 4:
+            read_nums(&real_part_1, &imaginary_part_1, &real_part_2, &imaginary_part_2);
+            divide(real_part_1, imaginary_part_1, real_part_2, imaginary_part_2, &real_result, &imaginary_result);
+            print_complex(real_result, imaginary_result);
+            break;
+            
+        case 5:
+            printf ("Bye!");
+            break;
+        }
+    }
+    
+    return 0;
+    
+}
+
+
+
+
+
