@@ -1,0 +1,202 @@
+/*This program implements a simple calculator where the user can choose an arithmetic operation from a menu to then execute a solution and print it to the user.  
+There is also the option to change the mode back and forth between integers and doubles. */
+
+#include <stdio.h>
+
+#include <math.h>
+
+int main()
+
+{
+    int add_1i, add_2i, sum_i, sub_1i, sub_2i, diff_i, mult_1i, mult_2i, prod_i, div_1i, div_2i, quot_i, calc_Type, option;
+    
+    double add_1d, add_2d, sum_d, sub_1d, sub_2d, diff_d, mult_1d, mult_2d, prod_d, div_1d, div_2d, quot_d, log_d, exp_d, exp_Pow, log_num;
+    
+    calc_Type = 0; /* initializes calc_Type to 0 */
+    
+    printf ("This program implements a calculator.\n");
+    
+    while (option != 8){ /* keeps the menu looping after each solution is displayed. */
+        
+    printf ("Options:\n1 - addition\n2 - subtraction\n3 - multiplication\n4 - division\n5 - exp(x)\n6 - log(x)\n7 - toggle calculator type\n8 - exit program\n");
+    
+    printf("Please enter your option: ");
+    scanf ("%d", &option);
+        
+    if (option != 1 && option != 2 && option != 3 && option != 4 && option != 5 && option != 6 && option != 7 && option != 8){
+        printf ("Invalid Option.\n");
+    }
+    
+    /*step 7*/
+    if (option == 7){
+        if (calc_Type == 0){
+        calc_Type++;
+        printf ("Calculator now works with integers.\n");
+    }
+    
+    else if (calc_Type == 1){
+        calc_Type--;
+        printf ("Calculator now works with doubles.\n");
+        }
+    }
+    
+    
+    /*step 1*/
+    if (option == 1){
+    if (calc_Type == 0){
+    
+        printf ("Enter first term: ");
+        scanf ("%lf", &add_1d);
+    
+        printf ("Enter second term: ");
+        scanf ("%lf", &add_2d);
+    
+        double sum_d = (add_1d + add_2d);
+        printf ("The sum is: %.15lf\n", sum_d); //double math
+        
+    } else if (calc_Type == 1) {
+    
+        printf ("Enter first term: ");
+        scanf ("%d", &add_1i);
+    
+        printf ("Enter second term: ");
+        scanf ("%d", &add_2i);
+    
+        int sum_i = (add_1i + add_2i);
+        printf ("The sum is: %d\n", sum_i); //integer math
+        }
+    }
+    
+    /*step 2*/
+    if (option == 2){
+        if (calc_Type == 0){
+    
+        printf ("Enter first term: ");
+        scanf ("%lf", &sub_1d);
+    
+        printf ("Enter second term: ");
+        scanf ("%lf", &sub_2d);
+    
+        double diff_d = (sub_1d - sub_2d);
+        printf ("The difference is: %.15lf\n", diff_d); //double math
+        
+    } else if (calc_Type == 1) {
+    
+        printf ("Enter first term: ");
+        scanf ("%d", &sub_1i);
+    
+        printf ("Enter second term: ");
+        scanf ("%d", &sub_2i);
+    
+        int diff_i = (sub_1i - sub_2i);
+        printf ("The difference is: %d\n", diff_i); //integer math
+        }
+    }
+    
+    /*step 3*/
+    if (option == 3){
+    if (calc_Type == 0){
+    
+        printf ("Enter first term: ");
+        scanf ("%lf", &mult_1d);
+    
+        printf ("Enter second term: ");
+        scanf ("%lf", &mult_2d);
+    
+        double prod_d = (mult_1d * mult_2d);
+        printf ("The product is: %.15lf\n", prod_d); //double math
+        
+    } else if (calc_Type == 1) {
+    
+        printf ("Enter first term: ");
+        scanf ("%d", &mult_1i);
+    
+        printf ("Enter second term: ");
+        scanf ("%d", &mult_2i);
+    
+        int prod_i = (mult_1i * mult_2i);
+        printf ("The product is: %d\n", prod_i); //integer math
+        }
+    }
+    
+    /*step 4*/
+    if (option == 4){
+    if (calc_Type == 0){
+    
+        printf ("Enter first term: ");
+        scanf ("%lf", &div_1d);
+    
+        printf ("Enter second term: ");
+        scanf ("%lf", &div_2d);
+    
+        double quot_d = (div_1d / div_2d);
+        
+            if (div_2d == 0){
+               printf ("Cannot divide by zero!\n");
+            } else {
+                printf ("The quotient is: %.15lf\n", quot_d); //double math
+            }
+        
+    } else if (calc_Type == 1) {
+    
+        printf ("Enter first term: ");
+        scanf ("%d", &div_1i);
+    
+        printf ("Enter second term: ");
+        scanf ("%d", &div_2i);
+    
+        int quot_i = (div_1i / div_2i);
+        printf ("The quotient is: %d\n", quot_i); //integer math
+        }
+    }
+    
+    /*step 5*/
+    if (option == 5){
+   
+        if (calc_Type == 0){
+        printf ("Enter term: ");
+        scanf ("%lf", &exp_Pow);
+        double exp_d = (exp_Pow, exp(exp_Pow));
+        printf ("The result of exp(%.15lf) is: %.15lf\n", exp_Pow, exp_d);
+        }
+        
+     else if (calc_Type == 1) {
+    
+        printf ("Cannot calculate with integers.\n");
+        }
+    }
+    
+    /*step 6*/
+    
+    if (option == 6){
+   
+        if (calc_Type == 0){
+        printf ("Enter term: ");
+        scanf ("%lf", &log_num);
+        
+          if (log_num > 0){
+          double log_d = log(log_num);
+          printf("The result of %.15lf is %.15lf\n", log_num, log_d);
+        
+          } else if (log_num <=0) {
+              printf("Cannot take the log of that number!\n");
+          } 
+        
+        } 
+        
+        else if (calc_Type == 1) {
+        printf ("Cannot calculate with integers.\n");
+        }   
+    }
+    
+    /*exit program*/
+    if (option == 8){
+        return 0;  
+        }    
+    } 
+}
+
+
+
+
+
