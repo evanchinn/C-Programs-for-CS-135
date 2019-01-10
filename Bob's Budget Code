@@ -1,0 +1,100 @@
+/* This program will prompt the user for information in regards to 3 book collections in which a customer "Bob" is interested in buying.  The number of volumes and the price of each volume (both as integers) will be needed for this program to run (with a space in between them).
+The user will also be prompted with how much the customer "Bob" wants to spend (bobsBudget). Based upon the inputs the user provided, the code will execute and print 7 pieces of information (2 additional statements compared to collections.c) about the Bob's budget and the book 
+collections he is interested in buying. */
+
+#include <stdio.h>
+
+int main()
+{
+    int volume1, price1, volume2, price2, volume3, price3, bobsBudget, collection1, collection2, collection3; /* defining integers for the rest of the program; the number after each price and volume corresponds with the book collection number */
+    
+    printf ("Enter volumes and price per volume for collection 1: "); /* prints "Enter volumes and price per volume for collection 1: " and waits for user input*/ 
+    scanf ("%d%d", &volume1, &price1); /*stores user input as volume1 and price1 */
+    
+    printf ("Enter volumes and price per volume for collection 2: "); /* prints "Enter volumes and price per volume for collection 2: " and waits for user input */
+    scanf ("%d%d", &volume2, &price2); /*stores user input as volume2 and price2 */
+    
+    printf ("Enter volumes and price per volume for collection 3: "); /* prints "Enter volumes and price per volume for collection 3: " and waits for user input*/
+    scanf ("%d%d", &volume3, &price3); /*stores user input as volume3 and price3 */
+    
+    printf ("Enter Bob's budget: "); /* prints "Enter Bob's budget: " and waits for user input */
+    scanf ("%d", &bobsBudget);/*stores user input as bobsBudget */
+    
+    collection1 = volume1*price1; /* collection1 now stores the value of the product of volume1 and price1 */
+    collection2 = volume2*price2; /* collection2 now stores the value of the product of volume2 and price2 */
+    collection3 = volume3*price3; /* collection3 now stores the value of the product of volume3 and price3 */
+    
+    if (bobsBudget > 0){
+        /* if condition bobsBudget is greater than 0, the following statement will be printed: (1) Bob has some money to buy collections. */
+    printf ("(1) Bob has some money to buy collections.\n");
+    
+    } else {
+        /* if condition bobsBudget is less than or equal to 0, the following statement will be printed: (1) Bob does not have money to buy anything. */
+            printf ("(1) Bob does not have money to buy anything.\n");
+        }
+    
+    if ((collection1 > bobsBudget && collection2 > bobsBudget && collection3 < bobsBudget) || (collection1 < bobsBudget && collection2 > bobsBudget && collection3 > bobsBudget) || (collection1 > bobsBudget && collection2 < bobsBudget && collection3 > bobsBudget) || (collection1 > bobsBudget && collection2 > bobsBudget && collection3 > bobsBudget)){
+        /* if condition bobsBudget is less than at least 2 individual collections, the following statement will be printed: (2) At least two collections are more expensive than Bob's budget. */
+        printf ("(2) At least two collections are more expensive than Bob's budget.\n");
+    } else { 
+        /* if condition bobsBudget is greater than at least 2 individual collections, the following statement will be printed: (2) At least two collections are cheaper than or equal to Bob's budget. */
+        printf ("(2) At least two collections are cheaper than or equal to Bob's budget.\n");
+    }
+     
+    if ((collection1==collection2) && (collection1==collection3) && (collection2 == collection3)){
+        /* if all of collections are worth the same amount, based upon volume and price, the following statement will be printed: (3) All the collections cost the same. */
+        printf ("(3) All the collections cost the same.\n");
+    } else if (collection1 == collection2 || collection2 == collection3 || collection1 == collection3){
+        /* if only two of the collections are worth the same amount, based upon volume and price, the following statement will be printed: (3) Only two collections cost the same amount of money. */
+        printf ("(3) Only two collections cost the same amount of money.\n");
+    } else {
+        /* if none of the collections are worth the same, the following statement will be printed: (3) No collections have the same price. */
+        printf ("(3) No collections have the same price.\n");
+    }
+    
+    if ((collection1 <= bobsBudget && collection2 > bobsBudget && collection3 > bobsBudget) || (collection1 > bobsBudget && collection2 <= bobsBudget && collection3 > bobsBudget) || (collection1 > bobsBudget && collection2 > bobsBudget && collection3 <= bobsBudget)){ 
+        /* if only one collection is cheaper than or equal to bobsBudget, the following statement will be printed: (4) Only one collection is cheaper than or equal to Bob’s budget. */
+        printf ("(4) Only one collection is cheaper than or equal to Bob’s budget.\n");
+    } else {
+        /* if the collections are more expensive or more than one collection is cheaper than or equal to bobsBudget, then the following statement will be printed: (4) More than one collection is cheaper than or equal to Bob’s budget or they are all more expensive. */
+        printf ("(4) More than one collection is cheaper than or equal to Bob’s budget or they are all more expensive.\n");
+    }
+    
+    if (bobsBudget >= collection1 && bobsBudget >= collection2 && bobsBudget >= collection3 ){ 
+        /* if bobsBudget is greater than the collections combined, the following statement will be printed: (5) Bob can buy all three collections. */
+        printf("(5) Bob can buy all three collections.\n");
+    } else if (bobsBudget >= (collection1+collection2) || bobsBudget >= (collection1+collection3) || bobsBudget >= (collection2+collection3)){
+        /* if bobsBudget is greater than 2 of the collections combined, the following statement will be printed: (5) Bob can only buy two of the collections. */
+        printf("(5) Bob can only buy two of the collections.\n");
+    } else if ((bobsBudget >= collection1 ||  bobsBudget >= collection2 || bobsBudget >= collection3)){
+        /* if bobsBudget is greater than just one collection, the following statement will be printed: (5) Bob can only buy one collection. */
+        printf ("(5) Bob can only buy one collection.\n");
+    } else {
+        /* if bobsBudget is less than all of the collections, the following statement will be printed: (5) Bob cannot buy any collection.*/
+        printf ("(5) Bob cannot buy any collection.\n");
+    }
+    
+    if (bobsBudget >= collection1 && bobsBudget >= collection2 && bobsBudget >= collection3){
+        /* if bobsBudget is greater than or equal to all three of the collections, the following statement will be printed: (6) Bob has enough money to buy any one of the three collections. */
+        printf ("(6) Bob has enough money to buy any one of the three collections.\n");
+    } else {
+        /* if bobsBudget is not greater than all three of the collections, the following statement will be printed: (6) Bob does not have enough money to buy any one of the three collections.  */
+        printf ("(6) Bob does not have enough money to buy any one of the three collections.\n");
+    }
+    
+    if (bobsBudget < collection1 && bobsBudget < collection2 && bobsBudget < collection3){
+        /* if bobsBudget is less than all of the collections, the following statemant will be printed: (7) Bob does not have enough money to buy any collection.*/
+        printf ("(7) Bob does not have enough money to buy any collection.\n");
+    } else {
+        /* if bobsBudget is not less than all of the collections, the following statement will be printed: (7) Bob can buy at least one collection.*/
+        printf ("(7) Bob can buy at least one collection.\n");
+    }
+    
+}
+
+
+
+
+
+
+
